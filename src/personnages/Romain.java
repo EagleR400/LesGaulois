@@ -39,14 +39,25 @@ public class Romain {
 	assert isInvariantVerified();
 	assert force < forceInitiale;
 	}
+	private void equiper(Equipement newEquipement) {
+		System.out.println("Le soldat "+this.getNom()+" s'équipe avec un "+newEquipement.toString()+".");
+		equipements[nbEquipement] = newEquipement;
+		nbEquipement += 1;
+	}
 	public void sEquiper(Equipement newEquipement) {
-		switch (this.nbEquipement) {
+		switch (nbEquipement) {
 			case 2 :
 				System.out.println("Le soldat "+this.getNom()+" est déjà bien protégé !");
+				break;
 			case 1 :
 				if (this.equipements[0] == newEquipement) {
 					System.out.println("Le soldat "+this.getNom()+" possède déjà un "+newEquipement.toString()+" !");
+				} else {
+					equiper(newEquipement);
 				}
+				break;
+			default :
+				equiper(newEquipement);
 		}
 	}
 	
@@ -55,7 +66,10 @@ public class Romain {
 		for (Equipement equipement : Equipement.values()) {
 			System.out.println(equipement);
 		}
-		
+		minus.sEquiper(Equipement.CASQUE);
+		minus.sEquiper(Equipement.CASQUE);
+		minus.sEquiper(Equipement.BOUCLIER);
+		minus.sEquiper(Equipement.CASQUE);
 		
 	}
 	
