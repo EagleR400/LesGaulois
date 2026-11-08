@@ -1,12 +1,14 @@
 package personnages;
 
+import objets.Equipement;
 import village_gaulois.Village;
 
 public class Gaulois {
 	private String nom;
-	private int force;
 	private int effetPotion = 1;
 	private Village village;
+	private int force;
+	private int nbTrophees;
 	
 	public Gaulois(String nom, int force) {
 		this.nom = nom;
@@ -25,28 +27,31 @@ public class Gaulois {
 	private String prendreParole() {
 		return "Le gaulois " + nom + " : ";
 	}
-	@Override
-	public String toString() {
-		return nom;
-	}
+	
 	public void frapper(Romain romain) {
 		System.out.println(nom + " envoie un grand coup dans la mâchoire de " + romain.getNom());
-		romain.recevoirCoup((force*effetPotion) / 3);
-		effetPotion -= 1;
-		if (effetPotion <= 1) {
+		Equipement[] trophees = romain.recevoirCoup((force / 3) * effetPotion);
+		effetPotion--;
+		if (effetPotion < 1) {
 			effetPotion = 1;
+			}
+		for (int i = 0; trophees != null && i < trophees.length; i++, nbTrophees++) {
+			trophees[nbTrophees] = trophees[i];
 		}
 	}
+	
 	public void boirePotion(int forcePotion) {
 		effetPotion = forcePotion;
 	}
+	
 	public void sePresenter() {
+		String texte = "Bonjour, je m'appelle ";
 		if (village == null) {
-			parler("Bonjour, je m'appelle "+nom+". Je voyage de village en village.");
+			parler(texte+nom+". Je voyage de village en village.");
 		} else if (village.getChef() == this) {
-			parler("Bonjour, je m'appelle "+nom+". Je suis le chef du village : "+village.getNom()+".");
+			parler(texte+nom+". Je suis le chef du village : "+village.getNom()+".");
 		} else {
-			parler("Bonjour, je m'appelle "+nom+". J'habite le village : "+village.getNom()+".");
+			parler(texte+nom+". J'habite le village : "+village.getNom()+".");
 		}
 	}
 	
