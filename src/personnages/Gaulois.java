@@ -8,7 +8,7 @@ public class Gaulois {
 	private int effetPotion = 1;
 	private Village village;
 	private int force;
-	private int nbTrophees;
+	private int nbTrophees = 0;
 	
 	public Gaulois(String nom, int force) {
 		this.nom = nom;
@@ -30,13 +30,16 @@ public class Gaulois {
 	
 	public void frapper(Romain romain) {
 		System.out.println(nom + " envoie un grand coup dans la mâchoire de " + romain.getNom());
-		Equipement[] trophees = romain.recevoirCoup((force / 3) * effetPotion);
+		Equipement[] trophees = romain.recevoirCoup((force / 2) * effetPotion);
 		effetPotion--;
 		if (effetPotion < 1) {
 			effetPotion = 1;
-			}
-		for (int i = 0; trophees != null && i < trophees.length; i++, nbTrophees++) {
-			trophees[nbTrophees] = trophees[i];
+		}
+		//for (int i = 0; trophees != null && i < trophees.length; i++, nbTrophees++) {
+		//	trophees[nbTrophees] = trophees[i];
+		//}
+		if (trophees != null) {
+			nbTrophees += trophees.length;
 		}
 	}
 	
